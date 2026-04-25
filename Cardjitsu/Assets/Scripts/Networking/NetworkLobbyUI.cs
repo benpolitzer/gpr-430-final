@@ -8,6 +8,7 @@ public class NetworkLobbyUI : MonoBehaviour
     [SerializeField] private GameObject connectionPanel;
     [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject gameResultsPanel;
 
     [Header("Lobby")]
     [SerializeField] private Button startGameButton;
@@ -35,7 +36,12 @@ public class NetworkLobbyUI : MonoBehaviour
             gameManager = FindFirstObjectByType<NetworkGameManager>();
 
         if (gameManager == null)
+        {
+            connectionPanel.SetActive(true);
+            lobbyPanel.SetActive(false);
+            gamePanel.SetActive(false);
             return;
+        }
 
         if (!sentName)
         {
@@ -51,9 +57,14 @@ public class NetworkLobbyUI : MonoBehaviour
     {
         if (gameManager.Phase == MatchPhase.WaitingForPlayers)
         {
+            clickedReady = false;
+
             connectionPanel.SetActive(false);
             lobbyPanel.SetActive(true);
             gamePanel.SetActive(false);
+
+            if (gameResultsPanel != null)
+                gameResultsPanel.SetActive(false);
 
             startGameButton.interactable = false;
             SetStatus("Waiting for another player...");
@@ -61,12 +72,16 @@ public class NetworkLobbyUI : MonoBehaviour
         else if (gameManager.Phase == MatchPhase.WaitingForReady)
         {
             clickedReady = false;
+
             connectionPanel.SetActive(false);
             lobbyPanel.SetActive(true);
             gamePanel.SetActive(false);
 
-            startGameButton.interactable = !clickedReady;
-            SetStatus(clickedReady ? "Waiting for opponent..." : "Ready to start.");
+            if (gameResultsPanel != null)
+                gameResultsPanel.SetActive(false);
+
+            startGameButton.interactable = true;
+            SetStatus("Ready to start.");
         }
         else if (gameManager.Phase == MatchPhase.WaitingForSelections ||
                  gameManager.Phase == MatchPhase.RoundFinished)
@@ -82,12 +97,12 @@ public class NetworkLobbyUI : MonoBehaviour
         if (gameManager == null)
             return;
 
-        if (gameManager.Phase == MatchPhase.WaitingForReady)
-        {
-            clickedReady = false;
-            startGameButton.interactable = true;
-            SetStatus("Ready to start.");
-        }
+        if (gameManager.Phase != MatchPhase.WaitingForReady)
+            return;
+
+        clickedReady = true;
+        startGameButton.interactable = false;
+        SetStatus("Waiting for opponent...");
 
         gameManager.RPC_SetReady(gameManager.Runner.LocalPlayer);
     }

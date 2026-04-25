@@ -23,6 +23,9 @@ public class CardView : MonoBehaviour
     [SerializeField] private Color waterColor = Color.blue;
     [SerializeField] private Color iceColor = Color.cyan;
 
+    [Header("Special Card Art")]
+    [SerializeField] private Sprite fire10Art;
+
     private Button button;
     private CardData currentCard;
 
@@ -49,7 +52,7 @@ public class CardView : MonoBehaviour
         currentCard = card;
 
         if (art != null)
-            art.sprite = sharedArt;
+            art.sprite = GetArt(card);
 
         if (elementIcon != null)
             elementIcon.sprite = GetIcon(card.element);
@@ -60,7 +63,13 @@ public class CardView : MonoBehaviour
         if (cardBack != null)
             cardBack.color = GetColor(card.element);
     }
+    private Sprite GetArt(CardData card)
+    {
+        if (card.element == CardData.Element.Fire && card.value == 10 && fire10Art != null)
+            return fire10Art;
 
+        return sharedArt;
+    }
     public void SetInteractable(bool interactable)
     {
         if (button != null)

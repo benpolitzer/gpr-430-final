@@ -45,6 +45,11 @@ public class RoundHUD : MonoBehaviour
         roundResultPanel.SetActive(false);
         nextRoundButton.gameObject.SetActive(false);
         nextRoundButton.onClick.AddListener(OnNextRoundClicked);
+
+        gameResultsPanel.SetActive(false);
+        playAgainButton.onClick.AddListener(OnPlayAgainClicked);
+        quitButton.onClick.AddListener(OnQuitClicked);
+
         playerReadyText.SetActive(false);
     }
 
@@ -159,6 +164,13 @@ public class RoundHUD : MonoBehaviour
         {
             ShowMatchFinished();
         }
+        else if (gameManager.Phase == MatchPhase.WaitingForReady || gameManager.Phase == MatchPhase.WaitingForPlayers)
+        {
+            handPanel.SetActive(false);
+            roundResultPanel.SetActive(false);
+            nextRoundButton.gameObject.SetActive(false);
+            gameResultsPanel.SetActive(false);
+        }
     }
     private void ShowMatchFinished()
     {
@@ -170,14 +182,23 @@ public class RoundHUD : MonoBehaviour
         string playerAName = gameManager.PlayerAName.ToString();
         string playerBName = gameManager.PlayerBName.ToString();
 
-        if (gameManager.PlayerARoundWins >= 5)
+        if (gameManager.PlayerARoundWins >= 3)
             winnerText.text = $"{playerAName} WINS!";
         else
             winnerText.text = $"{playerBName} WINS!";
     }
     public void OnQuitClicked()
     {
+        NetworkGameManager manager = FindFirstObjectByType<NetworkGameManager>();
+
+        if (manager != null && manager.Runner != null)
+            manager.Runner.Shutdown();
+
         Application.Quit();
+
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
     private void OnPlayAgainClicked()
     {

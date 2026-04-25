@@ -146,17 +146,44 @@ public class NetworkGameManager : NetworkBehaviour
         if (!HasStateAuthority)
             return;
 
+        if (Phase != MatchPhase.MatchFinished)
+            return;
+
         if (player == PlayerA)
             PlayerAPlayAgain = true;
         else if (player == PlayerB)
             PlayerBPlayAgain = true;
 
-        if (!PlayerAPlayAgain || !PlayerBPlayAgain)
+        Debug.LogWarning($"Play again: A={PlayerAPlayAgain}, B={PlayerBPlayAgain}");
+
+        if (PlayerAPlayAgain && PlayerBPlayAgain)
+        {
+            ResetFullMatch();
+            Phase = MatchPhase.WaitingForReady;
+        }
+    }
+    public void HandlePlayerLeft(PlayerRef player)
+    {
+        if (!HasStateAuthority)
             return;
 
-        ResetFullMatch();
+        Debug.LogWarning($"Player left: {player}");
 
-        Phase = MatchPhase.WaitingForReady;
+        PlayerA = PlayerRef.None;
+        PlayerB = PlayerRef.None;
+
+        PlayerAReady = false;
+        PlayerBReady = false;
+        PlayerAPlayAgain = false;
+        PlayerBPlayAgain = false;
+
+        PlayerARoundWins = 0;
+        PlayerBRoundWins = 0;
+        RoundNumber = 0;
+
+        ResetRoundState();
+
+        Phase = MatchPhase.WaitingForPlayers;
     }
     private void ResetFullMatch()
     {
@@ -212,28 +239,5 @@ public class NetworkGameManager : NetworkBehaviour
 
         ResetRoundState();
         Phase = MatchPhase.WaitingForSelections;
-    }
-    public void HandlePlayerLeft(PlayerRef player)
-    {
-        if (!HasStateAuthority)
-            return;
-
-        PlayerDisconnected = true;
-
-        ResetRoundState();
-
-        PlayerA = PlayerRef.None;
-        PlayerB = PlayerRef.None;
-
-        PlayerAReady = false;
-        PlayerBReady = false;
-        PlayerAPlayAgain = false;
-        PlayerBPlayAgain = false;
-
-        PlayerARoundWins = 0;
-        PlayerBRoundWins = 0;
-        RoundNumber = 0;
-
-        Phase = MatchPhase.WaitingForPlayers;
     }
 }
