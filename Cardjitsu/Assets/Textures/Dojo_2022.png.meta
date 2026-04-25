@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 40313c9b8cdacfa4db650612dd443864
+guid: a419c9c79b2e9cf47bf806b0806a5b42
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6066461974970091630
-    second: hq720_0
+      213: -192397420239502706
+    second: Dojo_2022_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hq720_0
+      name: Dojo_2022_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 686
-        height: 386
+        width: 3800
+        height: 2400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2973e7aa9f89fcba0800000000000000
-      internalID: -6066461974970091630
+      spriteID: e824ceec097745df0800000000000000
+      internalID: -192397420239502706
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      hq720_0: -6066461974970091630
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

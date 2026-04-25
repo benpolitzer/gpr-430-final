@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.4540405}
-  m_SizeDelta: {x: 260, y: 320}
+  m_AnchoredPosition: {x: 15.7, y: -30.8}
+  m_SizeDelta: {x: 222.329, y: 247.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1829551872516849964
 CanvasRenderer:
@@ -59,13 +59,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7954962741250858990, guid: 71146fdd38512ba4cab19538026549f0, type: 3}
+  m_Sprite: {fileID: -6093122143343505296, guid: 2683f4c56610a0e4a9eacf5204c9d994, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 373636183010130569}
   - component: {fileID: 6246766687868264420}
   - component: {fileID: 5733552422116821381}
-  - component: {fileID: 6732340330816650887}
+  - component: {fileID: 6832293119788812626}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -252,13 +252,13 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.4663726, g: 0.7735849, b: 0.29629755, a: 0.39215687}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.6150943, g: 0.6150943, b: 0.6150943, a: 1}
+    m_PressedColor: {r: 0.3132075, g: 0.3132075, b: 0.3132075, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0.25
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -271,11 +271,11 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 6246766687868264420}
+  m_TargetGraphic: {fileID: 6435095931303203313}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6732340330816650887
+--- !u!114 &6832293119788812626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,9 +284,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2376405577741380246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f07568a54e3a722458644f7f268e99d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 34354e0e401b8944ba84beb111a49f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardBack: {fileID: 6435095931303203313}
+  art: {fileID: 6944623233512066396}
+  elementIcon: {fileID: 974025803429906815}
+  valueText: {fileID: 4911815617802020192}
+  sharedArt: {fileID: -6093122143343505296, guid: 2683f4c56610a0e4a9eacf5204c9d994, type: 3}
+  fireIcon: {fileID: 1098286324429101383, guid: a87f0331060f5b046a4f4e0bc25146d0, type: 3}
+  waterIcon: {fileID: 6049605792901559095, guid: 5dd39128485ca5148b8dc5d31507d922, type: 3}
+  iceIcon: {fileID: -7560284153744367771, guid: 514c87fba90ed5f4da7372f9aa71b769, type: 3}
+  fireColor: {r: 0.78867924, g: 0.117557764, b: 0.117557764, a: 1}
+  waterColor: {r: 0.1467781, g: 0.18149959, b: 0.81886786, a: 1}
+  iceColor: {r: 0.10351724, g: 0.77959365, b: 0.81886786, a: 1}
 --- !u!1 &6435370378313689521
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,8 +332,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -83.80001, y: 32.3}
-  m_SizeDelta: {x: 31.7264, y: 55.3767}
+  m_AnchoredPosition: {x: -88.53, y: 21.07}
+  m_SizeDelta: {x: 78.1079, y: 55.3767}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7857872550046077314
 CanvasRenderer:
@@ -352,10 +363,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7f1669990701ea64d9bb67e561722ec8, type: 2}
+  m_sharedMaterial: {fileID: -305794010754841949, guid: 7f1669990701ea64d9bb67e561722ec8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -379,14 +390,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -417,7 +428,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0.76885986, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.64068604, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -482,7 +493,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

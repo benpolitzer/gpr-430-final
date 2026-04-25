@@ -7,9 +7,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
 {
     private NetworkRunner runner;
+    private GameObject runnerObject;
 
     [SerializeField] private TMP_Text statusText;
     [SerializeField] private NetworkPrefabRef gameManagerPrefab;
@@ -20,10 +22,20 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
         if (runner == null)
             return;
 
+        if (!runner)
+        {
+            CleanupRunner();
+            return;
+        }
+
         if (runner.SessionInfo.IsValid && statusText != null)
         {
-            statusText.text = $"Connected\n" + $"Mode: {runner.GameMode}\n" + $"Session: {runner.SessionInfo.Name}\n" + 
-                $"Region: {runner.SessionInfo.Region}\n" + $"Players: {runner.ActivePlayers.Count()}";
+            statusText.text =
+                $"Connected\n" +
+                $"Mode: {runner.GameMode}\n" +
+                $"Session: {runner.SessionInfo.Name}\n" +
+                $"Region: {runner.SessionInfo.Region}\n" +
+                $"Players: {runner.ActivePlayers.Count()}";
         }
     }
     private void SetStatus(string msg)
@@ -51,10 +63,13 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
 
         SetStatus($"Starting {mode}...");
 
-        runner = gameObject.AddComponent<NetworkRunner>();
+        runnerObject = new GameObject("NetworkRunner");
+        runner = runnerObject.AddComponent<NetworkRunner>();
+        runner.AddCallbacks(this);
+
         runner.ProvideInput = false;
 
-        var sceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>();
+        var sceneManager = runnerObject.AddComponent<NetworkSceneManagerDefault>();
 
         var result = await runner.StartGame(new StartGameArgs
         {
@@ -71,6 +86,7 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
         else
         {
             SetStatus($"StartGame failed: {result.ShutdownReason}");
+            CleanupRunner();
         }
     }
 
@@ -78,31 +94,52 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
     {
         SetStatus("Connected to Photon/Fusion session");
     }
-
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         SetStatus($"Player joined. Players now: {runner.ActivePlayers.Count()}");
 
-        if (runner.IsServer && spawnedGameManager == null)
+        if (!runner.IsServer)
+            return;
+
+        if (spawnedGameManager == null)
         {
             spawnedGameManager = runner.Spawn(gameManagerPrefab, Vector3.zero, Quaternion.identity);
-            SetStatus($"Spawned GameManager. Players now: {runner.ActivePlayers.Count()}");
         }
-    }
 
+        NetworkGameManager manager = spawnedGameManager.GetComponent<NetworkGameManager>();
+        manager.RegisterPlayer(player);
+    }
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         SetStatus($"Player left. Players now: {runner.ActivePlayers.Count()}");
+
+        if (runner.IsServer && spawnedGameManager != null)
+        {
+            NetworkGameManager manager = spawnedGameManager.GetComponent<NetworkGameManager>();
+
+            if (manager != null)
+                manager.HandlePlayerLeft(player);
+        }
     }
 
     public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
     {
         SetStatus($"Disconnected: {reason}");
     }
+    private void CleanupRunner()
+    {
+        if (runnerObject != null)
+        {
+            Destroy(runnerObject);
+        }
 
+        runner = null;
+        runnerObject = null;
+    }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
         SetStatus($"Shutdown: {shutdownReason}");
+        CleanupRunner();
     }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)

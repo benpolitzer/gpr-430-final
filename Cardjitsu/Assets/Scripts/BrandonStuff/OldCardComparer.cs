@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CardComparer 
+public class OldCardComparer 
 {
 
     // may need this later idk

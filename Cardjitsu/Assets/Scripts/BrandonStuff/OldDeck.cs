@@ -2,7 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Deck : MonoBehaviour
+public class OldDeck : MonoBehaviour
 {
     private const int CARD_SEED_AMOUNT = 50;
     private Stack<GameObject> cards;
