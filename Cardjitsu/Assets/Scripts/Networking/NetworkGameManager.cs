@@ -1,4 +1,5 @@
 using Fusion;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkGameManager : NetworkBehaviour
@@ -25,7 +26,124 @@ public class NetworkGameManager : NetworkBehaviour
     [Networked] public bool PlayerAPlayAgain { get; set; }
     [Networked] public bool PlayerBPlayAgain { get; set; }
     [Networked] public bool PlayerDisconnected { get; set; }
+    [Networked] public int PlayerAColor { get; set; }
+    [Networked] public int PlayerBColor { get; set; }
+    private const int MaxWonCards = 9;
 
+    [Networked] public int PlayerAWonCount { get; set; }
+    [Networked] public int PlayerBWonCount { get; set; }
+
+    [Networked, Capacity(MaxWonCards)] public NetworkArray<int> PlayerAWonElements { get; }
+    [Networked, Capacity(MaxWonCards)] public NetworkArray<int> PlayerAWonColors { get; }
+    [Networked, Capacity(MaxWonCards)] public NetworkArray<int> PlayerAWonValues { get; }
+
+    [Networked, Capacity(MaxWonCards)] public NetworkArray<int> PlayerBWonElements { get; }
+    [Networked, Capacity(MaxWonCards)] public NetworkArray<int> PlayerBWonColors { get; }
+    [Networked, Capacity(MaxWonCards)] public NetworkArray<int> PlayerBWonValues { get; }
+    [Networked] public int MatchWinner { get; set; } // -1 none, 0 A, 1 B
+
+    private const int HandSize = 5;
+
+    [Networked] public int PlayerAHandCount { get; set; }
+    [Networked] public int PlayerBHandCount { get; set; }
+
+    [Networked, Capacity(HandSize)] public NetworkArray<int> PlayerAHandElements { get; }
+    [Networked, Capacity(HandSize)] public NetworkArray<int> PlayerAHandColors { get; }
+    [Networked, Capacity(HandSize)] public NetworkArray<int> PlayerAHandValues { get; }
+
+    [Networked, Capacity(HandSize)] public NetworkArray<int> PlayerBHandElements { get; }
+    [Networked, Capacity(HandSize)] public NetworkArray<int> PlayerBHandColors { get; }
+    [Networked, Capacity(HandSize)] public NetworkArray<int> PlayerBHandValues { get; }
+    private void DealHandsForRound()
+    {
+        Deck deckA = new Deck();
+        Deck deckB = new Deck();
+
+        PlayerAHandCount = 0;
+        PlayerBHandCount = 0;
+
+        for (int i = 0; i < HandSize; i++)
+        {
+            CardData cardA = deckA.PullCard();
+            SetPlayerAHandCard(i, cardA);
+
+            CardData cardB = deckB.PullCard();
+            SetPlayerBHandCard(i, cardB);
+        }
+
+        PlayerAHandCount = HandSize;
+        PlayerBHandCount = HandSize;
+    }
+
+    private void SetPlayerAHandCard(int index, CardData card)
+    {
+        PlayerAHandElements.Set(index, (int)card.element);
+        PlayerAHandColors.Set(index, (int)card.color);
+        PlayerAHandValues.Set(index, card.value);
+    }
+
+    private void SetPlayerBHandCard(int index, CardData card)
+    {
+        PlayerBHandElements.Set(index, (int)card.element);
+        PlayerBHandColors.Set(index, (int)card.color);
+        PlayerBHandValues.Set(index, card.value);
+    }
+    private void AddWonCardToPlayerA(CardData card)
+    {
+        if (PlayerAWonCount >= MaxWonCards)
+            return;
+
+        PlayerAWonElements.Set(PlayerAWonCount, (int)card.element);
+        PlayerAWonColors.Set(PlayerAWonCount, (int)card.color);
+        PlayerAWonValues.Set(PlayerAWonCount, card.value);
+
+        PlayerAWonCount++;
+    }
+
+    private void AddWonCardToPlayerB(CardData card)
+    {
+        if (PlayerBWonCount >= MaxWonCards)
+            return;
+
+        PlayerBWonElements.Set(PlayerBWonCount, (int)card.element);
+        PlayerBWonColors.Set(PlayerBWonCount, (int)card.color);
+        PlayerBWonValues.Set(PlayerBWonCount, card.value);
+
+        PlayerBWonCount++;
+    }
+    private List<CardData> GetPlayerAWonCards()
+    {
+        List<CardData> cards = new List<CardData>();
+
+        for (int i = 0; i < PlayerAWonCount; i++)
+        {
+            cards.Add(new CardData(
+                $"A_Won_{i}",
+                (CardData.Element)PlayerAWonElements[i],
+                (CardData.CardColor)PlayerAWonColors[i],
+                PlayerAWonValues[i]
+            ));
+        }
+
+        return cards;
+    }
+
+    private List<CardData> GetPlayerBWonCards()
+    {
+        List<CardData> cards = new List<CardData>();
+
+        for (int i = 0; i < PlayerBWonCount; i++)
+        {
+            cards.Add(new CardData(
+                $"B_Won_{i}",
+                (CardData.Element)PlayerBWonElements[i],
+                (CardData.CardColor)PlayerBWonColors[i],
+                PlayerBWonValues[i]
+            ));
+        }
+
+        return cards;
+    }
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_SetPlayerName(PlayerRef player, string playerName)
     {
@@ -70,7 +188,7 @@ public class NetworkGameManager : NetworkBehaviour
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_SubmitCard(PlayerRef submittingPlayer, int element, int value)
+    public void RPC_SubmitCard(PlayerRef submittingPlayer, int handIndex)
     {
         if (!HasStateAuthority)
             return;
@@ -78,16 +196,21 @@ public class NetworkGameManager : NetworkBehaviour
         if (Phase != MatchPhase.WaitingForSelections)
             return;
 
+        if (handIndex < 0 || handIndex >= HandSize)
+            return;
+
         if (submittingPlayer == PlayerA && !PlayerASubmitted)
         {
-            PlayerAElement = element;
-            PlayerAValue = value;
+            PlayerAElement = PlayerAHandElements[handIndex];
+            PlayerAColor = PlayerAHandColors[handIndex];
+            PlayerAValue = PlayerAHandValues[handIndex];
             PlayerASubmitted = true;
         }
         else if (submittingPlayer == PlayerB && !PlayerBSubmitted)
         {
-            PlayerBElement = element;
-            PlayerBValue = value;
+            PlayerBElement = PlayerBHandElements[handIndex];
+            PlayerBColor = PlayerBHandColors[handIndex];
+            PlayerBValue = PlayerBHandValues[handIndex];
             PlayerBSubmitted = true;
         }
 
@@ -97,34 +220,56 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void ResolveRound()
     {
-        CardData cardA = new CardData("A", (CardData.Element)PlayerAElement, PlayerAValue);
-        CardData cardB = new CardData("B", (CardData.Element)PlayerBElement, PlayerBValue);
+        CardData cardA = new CardData(
+            "A",
+            (CardData.Element)PlayerAElement,
+            (CardData.CardColor)PlayerAColor,
+            PlayerAValue
+        );
+
+        CardData cardB = new CardData(
+            "B",
+            (CardData.Element)PlayerBElement,
+            (CardData.CardColor)PlayerBColor,
+            PlayerBValue
+        );
 
         RoundOutcome outcome = CardComparer.Compare(cardA, cardB);
 
         if (outcome == RoundOutcome.PlayerOneWins)
         {
             WinnerSlot = 0;
-            PlayerARoundWins++;
+            AddWonCardToPlayerA(cardA);
+
+            WinType winType = WinChecker.GetWinningSet(GetPlayerAWonCards());
+
+            if (winType != WinType.None)
+            {
+                MatchWinner = 0;
+                Phase = MatchPhase.MatchFinished;
+                return;
+            }
         }
         else if (outcome == RoundOutcome.PlayerTwoWins)
         {
             WinnerSlot = 1;
-            PlayerBRoundWins++;
+            AddWonCardToPlayerB(cardB);
+
+            WinType winType = WinChecker.GetWinningSet(GetPlayerBWonCards());
+
+            if (winType != WinType.None)
+            {
+                MatchWinner = 1;
+                Phase = MatchPhase.MatchFinished;
+                return;
+            }
         }
         else
         {
             WinnerSlot = 2;
         }
 
-        if (PlayerARoundWins >= RoundsToWin || PlayerBRoundWins >= RoundsToWin)
-        {
-            Phase = MatchPhase.MatchFinished;
-        }
-        else
-        {
-            Phase = MatchPhase.RoundFinished;
-        }
+        Phase = MatchPhase.RoundFinished;
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -138,6 +283,7 @@ public class NetworkGameManager : NetworkBehaviour
 
         RoundNumber++;
         ResetRoundState();
+        DealHandsForRound();
         Phase = MatchPhase.WaitingForSelections;
     }
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -198,6 +344,9 @@ public class NetworkGameManager : NetworkBehaviour
 
         RoundNumber = 0;
 
+        PlayerAWonCount = 0;
+        PlayerBWonCount = 0;
+
         ResetRoundState();
     }
     private void ResetRoundState()
@@ -212,6 +361,11 @@ public class NetworkGameManager : NetworkBehaviour
         PlayerBValue = -1;
 
         WinnerSlot = -1;
+
+        PlayerAColor = -1;
+        PlayerBColor = -1;
+        MatchWinner = -1;
+
     }
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_SetReady(PlayerRef readyPlayer)
@@ -232,12 +386,15 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void StartGame()
     {
-        PlayerARoundWins = 0;
-        PlayerBRoundWins = 0;
+        PlayerAWonCount = 0;
+        PlayerBWonCount = 0;
 
+        MatchWinner = -1;
         RoundNumber = 1;
 
         ResetRoundState();
+        DealHandsForRound();
+
         Phase = MatchPhase.WaitingForSelections;
     }
 }

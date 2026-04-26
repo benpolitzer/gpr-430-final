@@ -10,35 +10,32 @@ public class Deck
 
     public Deck()
     {
-        BuildStarterDeck();
+        BuildDeck();
     }
 
-    private void BuildStarterDeck()
+    private void BuildDeck()
     {
         cards.Clear();
 
-        List<CardData> generatedCards = new List<CardData>();
+        List<CardData> generated = new();
 
-        AddElementSet(generatedCards, CardData.Element.Fire);
-        AddElementSet(generatedCards, CardData.Element.Water);
-        AddElementSet(generatedCards, CardData.Element.Ice);
+        AddElementSet(generated, CardData.Element.Fire);
+        AddElementSet(generated, CardData.Element.Water);
+        AddElementSet(generated, CardData.Element.Ice);
 
-        Shuffle(generatedCards);
+        Shuffle(generated);
 
-        for (int i = 0; i < generatedCards.Count; i++)
-        {
-            cards.Push(generatedCards[i]);
-        }
+        foreach (CardData card in generated)
+            cards.Push(card);
     }
 
     private void AddElementSet(List<CardData> list, CardData.Element element)
     {
-        // 5 cards per element = 15-card deck total
-        list.Add(new CardData(Guid.NewGuid().ToString(), element, 2));
-        list.Add(new CardData(Guid.NewGuid().ToString(), element, 4));
-        list.Add(new CardData(Guid.NewGuid().ToString(), element, 6));
-        list.Add(new CardData(Guid.NewGuid().ToString(), element, 8));
-        list.Add(new CardData(Guid.NewGuid().ToString(), element, 10));
+        list.Add(new CardData(Guid.NewGuid().ToString(), element, CardData.CardColor.Red, 2));
+        list.Add(new CardData(Guid.NewGuid().ToString(), element, CardData.CardColor.Blue, 4));
+        list.Add(new CardData(Guid.NewGuid().ToString(), element, CardData.CardColor.Yellow, 6));
+        list.Add(new CardData(Guid.NewGuid().ToString(), element, CardData.CardColor.Green, 8));
+        list.Add(new CardData(Guid.NewGuid().ToString(), element, CardData.CardColor.Purple, 10));
     }
 
     public CardData PullCard()
@@ -54,10 +51,7 @@ public class Deck
         for (int i = 0; i < list.Count; i++)
         {
             int randomIndex = UnityEngine.Random.Range(i, list.Count);
-
-            CardData temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
         }
     }
 }

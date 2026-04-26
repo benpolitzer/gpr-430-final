@@ -76,7 +76,8 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
             GameMode = mode,
             SessionName = sessionName,
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
-            SceneManager = sceneManager
+            SceneManager = sceneManager,
+            EnableClientSessionCreation = true
         });
 
         if (result.Ok)

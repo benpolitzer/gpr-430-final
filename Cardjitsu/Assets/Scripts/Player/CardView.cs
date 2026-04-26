@@ -18,10 +18,13 @@ public class CardView : MonoBehaviour
     [SerializeField] private Sprite waterIcon;
     [SerializeField] private Sprite iceIcon;
 
-    [Header("Element Colors")]
-    [SerializeField] private Color fireColor = Color.red;
-    [SerializeField] private Color waterColor = Color.blue;
-    [SerializeField] private Color iceColor = Color.cyan;
+    [Header("Card Colors")]
+    [SerializeField] private Color redColor = Color.red;
+    [SerializeField] private Color blueColor = Color.blue;
+    [SerializeField] private Color yellowColor = Color.yellow;
+    [SerializeField] private Color greenColor = Color.green;
+    [SerializeField] private Color orangeColor = new Color(1f, 0.5f, 0f);
+    [SerializeField] private Color purpleColor = new Color(0.5f, 0f, 1f);
 
     [Header("Special Card Art")]
     [SerializeField] private Sprite fire10Art;
@@ -32,6 +35,7 @@ public class CardView : MonoBehaviour
     public CardData CurrentCard => currentCard;
 
     public event Action<CardView> Clicked;
+
 
     private void Awake()
     {
@@ -61,7 +65,7 @@ public class CardView : MonoBehaviour
             valueText.text = card.value.ToString();
 
         if (cardBack != null)
-            cardBack.color = GetColor(card.element);
+            cardBack.color = GetColor(card.color);
     }
     private Sprite GetArt(CardData card)
     {
@@ -103,16 +107,22 @@ public class CardView : MonoBehaviour
         }
     }
 
-    private Color GetColor(CardData.Element element)
+    private Color GetColor(CardData.CardColor color)
     {
-        switch (element)
+        switch (color)
         {
-            case CardData.Element.Fire:
-                return fireColor;
-            case CardData.Element.Water:
-                return waterColor;
-            case CardData.Element.Ice:
-                return iceColor;
+            case CardData.CardColor.Red:
+                return redColor;
+            case CardData.CardColor.Blue:
+                return blueColor;
+            case CardData.CardColor.Yellow:
+                return yellowColor;
+            case CardData.CardColor.Green:
+                return greenColor;
+            case CardData.CardColor.Orange:
+                return orangeColor;
+            case CardData.CardColor.Purple:
+                return purpleColor;
             default:
                 return Color.white;
         }

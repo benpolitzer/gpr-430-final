@@ -47,7 +47,7 @@ public class NetworkCardSubmitter : MonoBehaviour
         submittedThisRound = true;
         handView.SetCardsInteractable(false);
 
-        gameManager.RPC_SubmitCard(gameManager.Runner.LocalPlayer, (int)card.element, card.value);
+        gameManager.RPC_SubmitCard(gameManager.Runner.LocalPlayer, card.handIndex);
 
         Debug.LogWarning($"Submitted card to network: {card.element} {card.value}");
     }
