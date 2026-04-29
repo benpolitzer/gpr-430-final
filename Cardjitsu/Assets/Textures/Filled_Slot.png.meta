@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: ea89577c6f09515478418f44e0017a79
+guid: 9b00dadd0ee2ad74991ce793427c959a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 344306788884628659
-    second: IceArt_0
+      213: 3279733112181562709
+    second: Filled_Slot_0
+  - first:
+      213: 6249282305858315965
+    second: Filled_Slot_1
+  - first:
+      213: 5160006179915633670
+    second: Filled_Slot_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IceArt_0
+      name: Filled_Slot_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 60
-        width: 930
-        height: 1164
+        x: 0
+        y: 11
+        width: 1200
+        height: 1340
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b44935433937c400800000000000000
-      internalID: 344306788884628659
+      spriteID: 55d1ba583e3f38d20800000000000000
+      internalID: 3279733112181562709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Filled_Slot_1
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 18
+        width: 45
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db6a1d5a529e9b650800000000000000
+      internalID: 6249282305858315965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Filled_Slot_2
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 0
+        width: 48
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60411b028460c9740800000000000000
+      internalID: 5160006179915633670
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IceArt_0: 344306788884628659
+      Filled_Slot_0: 3279733112181562709
+      Filled_Slot_1: 6249282305858315965
+      Filled_Slot_2: 5160006179915633670
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -14,6 +14,7 @@ public class NetworkLobbyUI : MonoBehaviour
     [SerializeField] private Button startGameButton;
     [SerializeField] private TMP_Text lobbyStatusText;
     [SerializeField] private TMP_InputField playerNameInput;
+    [SerializeField] private FusionBootstrap fusionBootstrap;
 
     private NetworkGameManager gameManager;
     private bool clickedReady, sentName;
@@ -27,6 +28,11 @@ public class NetworkLobbyUI : MonoBehaviour
 
         startGameButton.interactable = false;
         startGameButton.onClick.AddListener(OnStartGameClicked);
+
+        if (fusionBootstrap == null)
+            fusionBootstrap = FindFirstObjectByType<FusionBootstrap>();
+
+        fusionBootstrap.StartLobbyBrowser();
     }
 
 

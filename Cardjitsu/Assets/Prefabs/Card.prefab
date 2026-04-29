@@ -287,11 +287,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34354e0e401b8944ba84beb111a49f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultCardBackSprite: {fileID: 21300000, guid: 97f041b8811d96443a64b084b22ebffe, type: 3}
   cardBack: {fileID: 6435095931303203313}
   art: {fileID: 6944623233512066396}
   elementIcon: {fileID: 974025803429906815}
   valueText: {fileID: 4911815617802020192}
-  sharedArt: {fileID: -6093122143343505296, guid: 2683f4c56610a0e4a9eacf5204c9d994, type: 3}
+  sharedArt: {fileID: 21300000, guid: 97f041b8811d96443a64b084b22ebffe, type: 3}
   fireIcon: {fileID: 1098286324429101383, guid: a87f0331060f5b046a4f4e0bc25146d0, type: 3}
   waterIcon: {fileID: 6049605792901559095, guid: 5dd39128485ca5148b8dc5d31507d922, type: 3}
   iceIcon: {fileID: -7560284153744367771, guid: 514c87fba90ed5f4da7372f9aa71b769, type: 3}
@@ -301,7 +302,24 @@ MonoBehaviour:
   greenColor: {r: 0, g: 1, b: 0, a: 1}
   orangeColor: {r: 1, g: 0.5, b: 0, a: 1}
   purpleColor: {r: 0.5, g: 0, b: 1, a: 1}
-  fire10Art: {fileID: 21300000, guid: 77c6835ac6fb7e441b367407f6c018ee, type: 3}
+  normalArtSprites:
+  - {fileID: 21300000, guid: 2683f4c56610a0e4a9eacf5204c9d994, type: 3}
+  - {fileID: 21300000, guid: 203a0effdc4c4d646bafe84ed791b61b, type: 3}
+  - {fileID: 21300000, guid: f1334a5f49f367b44aba90142a92e3c3, type: 3}
+  - {fileID: 21300000, guid: c8dedd420e6f56548af499dcc05f72ca, type: 3}
+  specialCardBacks:
+  - element: 0
+    color: 5
+    value: 10
+    cardBackSprite: {fileID: 21300000, guid: 77c6835ac6fb7e441b367407f6c018ee, type: 3}
+  - element: 1
+    color: 5
+    value: 10
+    cardBackSprite: {fileID: 21300000, guid: 9bd461d4a94d9df4d81e3a9b7b1ce27c, type: 3}
+  - element: 2
+    color: 5
+    value: 10
+    cardBackSprite: {fileID: 21300000, guid: 23ca057fad5acc441b2cca1efaeca6c2, type: 3}
 --- !u!1 &6435370378313689521
 GameObject:
   m_ObjectHideFlags: 0

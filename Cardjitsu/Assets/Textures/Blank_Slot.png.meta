@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ea89577c6f09515478418f44e0017a79
+guid: 0b9fb4aec40f3b24fb6284eaf67efb7a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 344306788884628659
-    second: IceArt_0
+      213: -478374367151145605
+    second: Blank_Slot_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IceArt_0
+      name: Blank_Slot_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 60
-        width: 930
-        height: 1164
+        x: 0
+        y: 20
+        width: 1200
+        height: 1310
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b44935433937c400800000000000000
-      internalID: 344306788884628659
+      spriteID: b7dbd403c097c59f0800000000000000
+      internalID: -478374367151145605
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IceArt_0: 344306788884628659
+      Blank_Slot_0: -478374367151145605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -17,6 +17,8 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private NetworkPrefabRef gameManagerPrefab;
 
     private NetworkObject spawnedGameManager;
+
+    public static List<SessionInfo> CachedSessions = new();
     private void Update()
     {
         if (runner == null)
@@ -59,14 +61,16 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
     private async System.Threading.Tasks.Task StartRunner(GameMode mode, string sessionName)
     {
         if (runner != null)
-            return;
+        {
+            await runner.Shutdown();
+            CleanupRunner();
+        }
 
         SetStatus($"Starting {mode}...");
 
         runnerObject = new GameObject("NetworkRunner");
         runner = runnerObject.AddComponent<NetworkRunner>();
         runner.AddCallbacks(this);
-
         runner.ProvideInput = false;
 
         var sceneManager = runnerObject.AddComponent<NetworkSceneManagerDefault>();
@@ -77,20 +81,38 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
             SessionName = sessionName,
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
             SceneManager = sceneManager,
-            EnableClientSessionCreation = true
+            PlayerCount = 2,
+            IsVisible = true,
+            IsOpen = true
         });
 
         if (result.Ok)
         {
-            SetStatus($"{mode} started. Waiting for connection...");
+            SetStatus($"{mode} started.");
         }
         else
         {
             SetStatus($"StartGame failed: {result.ShutdownReason}");
             CleanupRunner();
+            StartLobbyBrowser();
         }
     }
+    public async void StartLobbyBrowser()
+    {
+        if (runner != null)
+            return;
 
+        runnerObject = new GameObject("LobbyBrowserRunner");
+        runner = runnerObject.AddComponent<NetworkRunner>();
+        runner.AddCallbacks(this);
+
+        var result = await runner.JoinSessionLobby(SessionLobby.ClientServer);
+
+        if (result.Ok)
+            SetStatus("Browsing lobbies.");
+        else
+            SetStatus($"Lobby browser failed: {result.ShutdownReason}");
+    }
     public void OnConnectedToServer(NetworkRunner runner)
     {
         SetStatus("Connected to Photon/Fusion session");
@@ -147,11 +169,11 @@ public class FusionBootstrap : MonoBehaviour, INetworkRunnerCallbacks
     {
         SetStatus($"Connect failed: {reason}");
     }
-
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
+        CachedSessions = sessionList;
+        Debug.LogWarning($"Session list updated: {sessionList.Count}");
     }
-
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
     public void OnInput(NetworkRunner runner, NetworkInput input) { }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }

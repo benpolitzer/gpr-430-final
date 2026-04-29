@@ -3,9 +3,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+[System.Serializable]
+public class SpecialCardArt
+{
+    public CardData.Element element;
+    public CardData.CardColor color;
+    public int value;
+    public Sprite cardBackSprite;
+}
 public class CardView : MonoBehaviour
 {
+    [SerializeField] private Sprite defaultCardBackSprite;
+
     [Header("UI References")]
     [SerializeField] private Image cardBack;
     [SerializeField] private Image art;
@@ -26,8 +35,11 @@ public class CardView : MonoBehaviour
     [SerializeField] private Color orangeColor = new Color(1f, 0.5f, 0f);
     [SerializeField] private Color purpleColor = new Color(0.5f, 0f, 1f);
 
-    [Header("Special Card Art")]
-    [SerializeField] private Sprite fire10Art;
+    [Header("Normal Art Pool")]
+    [SerializeField] private Sprite[] normalArtSprites;
+
+    [Header("Special Card Backs")]
+    [SerializeField] private SpecialCardArt[] specialCardBacks;
 
     private Button button;
     private CardData currentCard;
@@ -47,32 +59,31 @@ public class CardView : MonoBehaviour
             button.onClick.AddListener(HandleClicked);
         }
     }
+    private Sprite GetNormalArt(CardData card)
+    {
+        if (normalArtSprites == null || normalArtSprites.Length == 0)
+            return sharedArt;
+
+        int index = Mathf.Abs(card.instanceId.GetHashCode()) % normalArtSprites.Length;
+        return normalArtSprites[index];
+    }
+    private Sprite GetSpecialCardBack(CardData card)
+    {
+        foreach (SpecialCardArt special in specialCardBacks)
+        {
+            if (special.element == card.element &&
+                special.color == card.color &&
+                special.value == card.value)
+            {
+                return special.cardBackSprite;
+            }
+        }
+
+        return null;
+    }
     public void SetSelected(bool selected)
     {
         transform.localScale = selected ? Vector3.one * 1.12f : Vector3.one;
-    }
-    public void SetCard(CardData card)
-    {
-        currentCard = card;
-
-        if (art != null)
-            art.sprite = GetArt(card);
-
-        if (elementIcon != null)
-            elementIcon.sprite = GetIcon(card.element);
-
-        if (valueText != null)
-            valueText.text = card.value.ToString();
-
-        if (cardBack != null)
-            cardBack.color = GetColor(card.color);
-    }
-    private Sprite GetArt(CardData card)
-    {
-        if (card.element == CardData.Element.Fire && card.value == 10 && fire10Art != null)
-            return fire10Art;
-
-        return sharedArt;
     }
     public void SetInteractable(bool interactable)
     {
@@ -91,7 +102,44 @@ public class CardView : MonoBehaviour
 
         Clicked?.Invoke(this);
     }
+    public void SetCard(CardData card)
+    {
+        currentCard = card;
 
+        Sprite specialBack = GetSpecialCardBack(card);
+
+        if (specialBack != null)
+        {
+            if (cardBack != null)
+            {
+                cardBack.sprite = specialBack;
+                cardBack.color = Color.white;
+            }
+
+            if (art != null)
+                art.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (cardBack != null)
+            {
+                cardBack.sprite = defaultCardBackSprite;
+                cardBack.color = GetColor(card.color);
+            }
+
+            if (art != null)
+            {
+                art.gameObject.SetActive(true);
+                art.sprite = GetNormalArt(card);
+            }
+        }
+
+        if (elementIcon != null)
+            elementIcon.sprite = GetIcon(card.element);
+
+        if (valueText != null)
+            valueText.text = card.value.ToString();
+    }
     private Sprite GetIcon(CardData.Element element)
     {
         switch (element)

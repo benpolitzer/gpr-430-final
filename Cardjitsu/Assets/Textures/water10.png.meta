@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: ea89577c6f09515478418f44e0017a79
+guid: 9bd461d4a94d9df4d81e3a9b7b1ce27c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 344306788884628659
-    second: IceArt_0
+      213: 2050374058810514323
+    second: water10_0
+  - first:
+      213: 2693159402481791288
+    second: water10_1
+  - first:
+      213: -5944549409565577142
+    second: water10_2
+  - first:
+      213: 94442177757794303
+    second: water10_3
+  - first:
+      213: -1846082410329637853
+    second: water10_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IceArt_0
+      name: water10_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 60
-        width: 930
-        height: 1164
+        x: 0
+        y: 1205
+        width: 6
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +140,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b44935433937c400800000000000000
-      internalID: 344306788884628659
+      spriteID: 39b9318d754647c10800000000000000
+      internalID: 2050374058810514323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water10_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 61
+        width: 928
+        height: 1162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8313e642536006520800000000000000
+      internalID: 2693159402481791288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water10_2
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 1205
+        width: 76
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a40f51dbec7b08da0800000000000000
+      internalID: -5944549409565577142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water10_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fff411909a68f4100800000000000000
+      internalID: 94442177757794303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water10_4
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 0
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c743a24d56166e0800000000000000
+      internalID: -1846082410329637853
       vertices: []
       indices: 
       edges: []
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IceArt_0: 344306788884628659
+      water10_0: 2050374058810514323
+      water10_1: 2693159402481791288
+      water10_2: -5944549409565577142
+      water10_3: 94442177757794303
+      water10_4: -1846082410329637853
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

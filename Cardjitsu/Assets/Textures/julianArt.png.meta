@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: ea89577c6f09515478418f44e0017a79
+guid: 203a0effdc4c4d646bafe84ed791b61b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 344306788884628659
-    second: IceArt_0
+      213: 4490367564028957128
+    second: julianArt_0
+  - first:
+      213: -5395517095545155644
+    second: julianArt_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +27,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -51,7 +54,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IceArt_0
+      name: julianArt_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 60
-        width: 930
-        height: 1164
+        x: 0
+        y: 818
+        width: 7
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b44935433937c400800000000000000
-      internalID: 344306788884628659
+      spriteID: 8c1d1ec228df05e30800000000000000
+      internalID: 4490367564028957128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: julianArt_1
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 117
+        width: 668
+        height: 723
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cfcb7cc9c54f15b0800000000000000
+      internalID: -5395517095545155644
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IceArt_0: 344306788884628659
+      julianArt_0: 4490367564028957128
+      julianArt_1: -5395517095545155644
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
