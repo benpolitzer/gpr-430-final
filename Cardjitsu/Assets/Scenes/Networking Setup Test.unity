@@ -3406,6 +3406,7 @@ GameObject:
   - component: {fileID: 807006262}
   - component: {fileID: 807006261}
   - component: {fileID: 807006260}
+  - component: {fileID: 807006263}
   m_Layer: 5
   m_Name: Refresh
   m_TagString: Untagged
@@ -3452,7 +3453,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3527,6 +3528,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807006258}
   m_CullTransparentMesh: 1
+--- !u!114 &807006263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807006258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1152414187}
+          m_TargetAssemblyTypeName: LobbyBrowserUI, Assembly-CSharp
+          m_MethodName: OnMouseEnterRefresh
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1152414187}
+          m_TargetAssemblyTypeName: LobbyBrowserUI, Assembly-CSharp
+          m_MethodName: OnMouseLeaveRefresh
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &822051392
 GameObject:
   m_ObjectHideFlags: 0
@@ -3810,6 +3856,7 @@ GameObject:
   - component: {fileID: 871635257}
   - component: {fileID: 871635256}
   - component: {fileID: 871635255}
+  - component: {fileID: 871635258}
   m_Layer: 5
   m_Name: Host
   m_TagString: Untagged
@@ -3856,7 +3903,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3931,6 +3978,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871635253}
   m_CullTransparentMesh: 1
+--- !u!114 &871635258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871635253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1152414187}
+          m_TargetAssemblyTypeName: LobbyBrowserUI, Assembly-CSharp
+          m_MethodName: OnMouseEnterHost
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1152414187}
+          m_TargetAssemblyTypeName: LobbyBrowserUI, Assembly-CSharp
+          m_MethodName: OnMouseLeaveHost
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &879978254
 GameObject:
   m_ObjectHideFlags: 0
@@ -5463,6 +5555,7 @@ MonoBehaviour:
   lobbyRowPrefab: {fileID: 609185617526060089, guid: cf15782ced6380943b5ffbabddeba778, type: 3}
   noLobbiesText: {fileID: 573663701}
   refreshButton: {fileID: 807006260}
+  hostButton: {fileID: 871635255}
   playersOnlineText: {fileID: 497078929}
 --- !u!1 &1200718900
 GameObject:
@@ -5841,6 +5934,7 @@ GameObject:
   - component: {fileID: 1261055398}
   - component: {fileID: 1261055400}
   - component: {fileID: 1261055399}
+  - component: {fileID: 1261055401}
   m_Layer: 5
   m_Name: Session Input BG
   m_TagString: Untagged
@@ -5912,6 +6006,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261055397}
   m_CullTransparentMesh: 1
+--- !u!225 &1261055401
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261055397}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1273362449
 GameObject:
   m_ObjectHideFlags: 0
@@ -7481,7 +7587,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

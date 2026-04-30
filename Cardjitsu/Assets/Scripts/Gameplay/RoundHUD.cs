@@ -253,13 +253,13 @@ public class RoundHUD : MonoBehaviour
             playerReadyText.SetActive(false);
     }
 
-    private string GetPlayerAName()
+    public string GetPlayerAName()
     {
         string name = gameManager.PlayerAName.ToString();
         return string.IsNullOrWhiteSpace(name) ? "Player A" : name;
     }
 
-    private string GetPlayerBName()
+    public string GetPlayerBName()
     {
         string name = gameManager.PlayerBName.ToString();
         return string.IsNullOrWhiteSpace(name) ? "Player B" : name;

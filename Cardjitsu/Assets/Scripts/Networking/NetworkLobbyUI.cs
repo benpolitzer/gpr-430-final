@@ -59,6 +59,16 @@ public class NetworkLobbyUI : MonoBehaviour
         UpdateUI();
     }
 
+    private void OnPlayerJoinSession(string name)
+    {
+
+    }
+
+    private void InitPlayerText()
+    {
+
+    }
+
     private void UpdateUI()
     {
         if (gameManager.Phase == MatchPhase.WaitingForPlayers)

@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using Fusion;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VG.Tweener;
 
 public class LobbyBrowserUI : MonoBehaviour
 {
@@ -11,8 +13,8 @@ public class LobbyBrowserUI : MonoBehaviour
     [SerializeField] private LobbyRowUI lobbyRowPrefab;
     [SerializeField] private TMP_Text noLobbiesText;
     [SerializeField] private Button refreshButton;
+    [SerializeField] private Button hostButton; 
     [SerializeField] private TMP_Text playersOnlineText;
-
 
     private readonly List<LobbyRowUI> spawnedRows = new();
     private int lastSessionHash = -1;
@@ -103,5 +105,38 @@ public class LobbyBrowserUI : MonoBehaviour
         }
 
         spawnedRows.Clear();
+    }
+
+    // UI events
+    public void OnMouseEnterHost(BaseEventData data)
+    {
+        TMP_Text label = hostButton.transform.GetChild(0).GetComponent<TMP_Text>();
+
+        Tweener.LocalScale(hostButton.gameObject, Vector3.one * 1.2f, 0.25f, EasingStyle.Quintic);
+        Tweener.TextColor(label, new(1f, .95f, 0), .5f, EasingStyle.Quintic);
+    }
+
+    public void OnMouseLeaveHost()
+    {
+        TMP_Text label = hostButton.transform.GetChild(0).GetComponent<TMP_Text>();
+
+        Tweener.LocalScale(hostButton.gameObject, Vector3.one, 0.25f, EasingStyle.Quintic);
+        Tweener.TextColor(label, Color.white, .5f, EasingStyle.Quintic);
+    }
+
+    public void OnMouseEnterRefresh()
+    {
+        TMP_Text label = refreshButton.transform.GetChild(0).GetComponent<TMP_Text>();
+
+        Tweener.LocalScale(refreshButton.gameObject, Vector3.one * 1.2f, 0.25f, EasingStyle.Quintic);
+        Tweener.TextColor(label, new(1f, .95f, 0), .5f, EasingStyle.Quintic);
+    }
+
+    public void OnMouseLeaveRefresh()
+    {
+        TMP_Text label = refreshButton.transform.GetChild(0).GetComponent<TMP_Text>();
+
+        Tweener.LocalScale(refreshButton.gameObject, Vector3.one, 0.25f, EasingStyle.Quintic);
+        Tweener.TextColor(label, Color.white, .5f, EasingStyle.Quintic);
     }
 }
